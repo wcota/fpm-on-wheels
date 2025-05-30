@@ -13,6 +13,7 @@ jobs:
           - { os: windows-2019, shell: "msys2 {0}" }
           - { os: ubuntu-22.04, shell: bash }
           - { os: macos-14, shell: bash }
+          - { os: macos-14-arm64, shell: bash }
     defaults:
       run:
         shell: ${{ matrix.sys.shell }}
@@ -32,6 +33,13 @@ jobs:
 
       - name: Build wheels
         run: |
+          if [[ "${{ runner.arch }}" == "ARM64" || "${{ runner.arch }}" == "arm64" ]]; then
+            export CIBW_ARCHS=arm64
+            export CIBW_SKIP="*-macosx_x86_64"
+          else
+            export CIBW_ARCHS=x86_64
+            export CIBW_SKIP="*-macosx_arm64"
+          fi
           pipx run cibuildwheel
 
       - name: Make wheels pythonless
