@@ -40,7 +40,8 @@ jobs:
             export CIBW_ARCHS=x86_64
             export CIBW_SKIP="*-macosx_arm64"
           fi
-          pipx run cibuildwheel
+            pipx upgrade cibuildwheel
+            pipx run cibuildwheel
 
       - name: Make wheels pythonless
         run: |
