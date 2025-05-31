@@ -57,12 +57,12 @@ repair-wheel-command = [
 # Intel slice wants 10.9
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_x86_64"
-environment = { MACOSX_DEPLOYMENT_TARGET = "10.9", CFLAGS = "-mmacosx-version-min=10.9", FFLAGS = "-mmacosx-version-min=10.9", LDFLAGS = "-mmacosx-version-min=10.9 ${LDFLAGS}" }
+environment = { MACOSX_DEPLOYMENT_TARGET = "10.9", CFLAGS = "-mmacosx-version-min=10.9", FFLAGS = "-mmacosx-version-min=10.9" }
 
 # Apple-Silicon slice wants 11.0
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_arm64"
-environment = { MACOSX_DEPLOYMENT_TARGET = "11.0", CFLAGS = "-mmacosx-version-min=11.0", FFLAGS = "-mmacosx-version-min=11.0", LDFLAGS = "-mmacosx-version-min=11.0 ${LDFLAGS}" }
+environment = { MACOSX_DEPLOYMENT_TARGET = "11.0", CFLAGS = "-mmacosx-version-min=11.0", FFLAGS = "-mmacosx-version-min=11.0" }
 
 [tool.cibuildwheel.windows]
 archs = ["auto64"]
