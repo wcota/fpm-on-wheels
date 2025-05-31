@@ -43,7 +43,7 @@ build = "cp312-*"
 [tool.cibuildwheel.macos]
 archs = ["native"]
 environment = { CC = "clang", CXX = "clang++" }
-before-build = "bash {project}/tools/wheels/get_gfortran.sh"
+before-build = "bash {project}/tools/wheels/cibw_before_build_macos.sh"
 repair-wheel-command = [
     "delocate-wheel",
     "--require-archs",
