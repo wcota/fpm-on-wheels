@@ -42,7 +42,7 @@ build = "cp312-*"
 
 [tool.cibuildwheel.macos]
 archs = ["native"]
-environment = { CC = "clang", CXX = "clang++" }
+environment = { CC = "clang", CXX = "clang++", CMAKE_ARGS = "-DCMAKE_OSX_SYSROOT=$SDKROOT", LDFLAGS = "-Wl,-syslibroot,$SDKROOT" }
 before-build = "bash {project}/tools/wheels/cibw_before_build_macos.sh {project}"
 repair-wheel-command = [
     "delocate-wheel",
