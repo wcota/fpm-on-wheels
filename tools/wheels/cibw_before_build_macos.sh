@@ -10,10 +10,6 @@ else
     GFOR_ARCH="arm64"
 fi
 
-if [ -n "$GITHUB_ENV" ]; then
-    brew unlink gcc || true
-fi
-
 echo "@@@ MACOSX_DEPLOYMENT_TARGET:" $MACOSX_DEPLOYMENT_TARGET
 echo "@@@ GFOR_ARCH:" $GFOR_ARCH
 # ---------- install gfortran ----------
