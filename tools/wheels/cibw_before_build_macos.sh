@@ -1,8 +1,6 @@
 set -ex
 
 PROJECT_DIR="$1"
-PLATFORM="macosx-arm64"
-PLAT="arm64"
 source $PROJECT_DIR/tools/wheels/gfortran_utils.sh
 install_gfortran
 
