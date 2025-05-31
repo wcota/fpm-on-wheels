@@ -4,6 +4,16 @@ PROJECT_DIR="$1"
 source $PROJECT_DIR/tools/wheels/gfortran_utils.sh
 install_gfortran
 
+eval "$(gfortran_get_vars)"
+{
+    echo "FC=$FC"
+    echo "F90=$FC"
+    echo "F95=$FC"
+    echo "LDFLAGS=$LDFLAGS"
+    echo "CFLAGS=-mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET"
+    echo "FFLAGS=$CFLAGS"
+} >>"$GITHUB_ENV"
+
 # Cannot pass these variables to the wheel building process since before-build
 # executes in a subprocess. So we print them out and manually set them in
 # pyproject.toml
