@@ -1,6 +1,17 @@
 set -ex
 
 PROJECT_DIR="$1"
+
+if [[ "$(uname -m)" == "x86_64" ]]; then
+    export MACOSX_DEPLOYMENT_TARGET=${MACOSX_DEPLOYMENT_TARGET:-10.9}
+else
+    export MACOSX_DEPLOYMENT_TARGET=${MACOSX_DEPLOYMENT_TARGET:-11.0}
+fi
+
+if [ -n "$GITHUB_ENV" ]; then
+    brew unlink gcc || true
+fi
+
 source $PROJECT_DIR/tools/wheels/gfortran_utils.sh
 install_gfortran
 
