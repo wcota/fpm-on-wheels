@@ -41,10 +41,28 @@ build = "cp312-*"
 # build-verbosity = 3
 
 [tool.cibuildwheel.macos]
-archs = ["x86_64", "arm64"]
-environment = { CC = "clang", CXX = "clang++", FC = "gfortran" }
-before-build = "bash {project}/tools/wheels/cibw_before_build_macos.sh {project}"
+archs = ["native"]
+environment = { CC = "clang", CXX = "clang++" }
+before-build = "bash {project}/tools/wheels/get_gfortran.sh"
+repair-wheel-command = [
+    "delocate-wheel",
+    "--require-archs",
+    "{delocate_archs}",
+    "-w",
+    "{dest_dir}",
+    "-v",
+    "{wheel}",
+]
 
+# Intel slice wants 10.9
+[[tool.cibuildwheel.overrides]]
+select = "*-macosx_x86_64"
+environment = { MACOSX_DEPLOYMENT_TARGET = "10.9", CFLAGS = "-mmacosx-version-min=10.9", FFLAGS = "-mmacosx-version-min=10.9", LDFLAGS = "-mmacosx-version-min=10.9 ${LDFLAGS}" }
+
+# Apple-Silicon slice wants 11.0
+[[tool.cibuildwheel.overrides]]
+select = "*-macosx_arm64"
+environment = { MACOSX_DEPLOYMENT_TARGET = "11.0", CFLAGS = "-mmacosx-version-min=11.0", FFLAGS = "-mmacosx-version-min=11.0", LDFLAGS = "-mmacosx-version-min=11.0 ${LDFLAGS}" }
 
 [tool.cibuildwheel.windows]
 archs = ["auto64"]
