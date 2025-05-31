@@ -33,15 +33,17 @@ jobs:
 
       - name: Build wheels
         run: |
-          if [[ "${{ runner.arch }}" == "ARM64" || "${{ runner.arch }}" == "arm64" ]]; then
-            export CIBW_ARCHS=arm64
-            export CIBW_SKIP="*-macosx_x86_64"
-          else
-            export CIBW_ARCHS=x86_64
-            export CIBW_SKIP="*-macosx_arm64"
+          if [[ "${{ runner.os }}" == "macOS" ]]; then
+            if [[ "${{ runner.arch }}" == "ARM64" || "${{ runner.arch }}" == "arm64" ]]; then
+              export CIBW_ARCHS=arm64
+              export CIBW_SKIP="*-macosx_x86_64"
+            else
+              export CIBW_ARCHS=x86_64
+              export CIBW_SKIP="*-macosx_arm64"
+            fi
           fi
-            pipx install cibuildwheel
-            pipx run cibuildwheel
+          pipx install cibuildwheel
+          pipx run cibuildwheel
 
       - name: Make wheels pythonless
         run: |
